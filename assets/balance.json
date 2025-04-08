@@ -1,0 +1,6 @@
+{
+  "wallet": "0x1234abcd5678ef",
+  "balance": "934.55",
+  "currency": "USDT",
+  "networks": ["BNB", "LTC"]
+}
