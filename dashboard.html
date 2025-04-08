@@ -1,1 +1,148 @@
-<!DOCTYPE html><html><head><title>Dashboard | iCominer</title></head><body><h1>Dashboard Page (Coming Soon)</h1></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | iCominer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f3f8;
+      color: #333;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
+    }
+    .stat {
+      background: #00b894;
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      flex: 1;
+      margin: 0 10px;
+      text-align: center;
+    }
+    .stat h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .stat p {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+    canvas {
+      max-width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+    .tx-table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+    .tx-table th, .tx-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .tx-table th {
+      background: #f4f4f4;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, Ron</h1>
+    <p style="text-align:center;">Last login: 2025-04-07 22:13:02 | Account ID: <b>0xF13a...D5c9</b></p>
+    
+    <div class="stats">
+      <div class="stat">
+        <h3>Total Balance</h3>
+        <p>$934.55</p>
+      </div>
+      <div class="stat">
+        <h3>Active Plan</h3>
+        <p>Plan Gold</p>
+      </div>
+      <div class="stat">
+        <h3>Referral Earnings</h3>
+        <p>$154.00</p>
+      </div>
+    </div>
+
+    <h2>Earnings Overview</h2>
+    <canvas id="earningsChart" height="120"></canvas>
+
+    <h2>Latest Payouts</h2>
+    <table class="tx-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>TX ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2025-04-06</td><td>$50.00</td><td>Success</td><td>0xabc123...</td></tr>
+        <tr><td>2025-04-03</td><td>$45.00</td><td>Success</td><td>0xdef456...</td></tr>
+        <tr><td>2025-03-30</td><td>$42.00</td><td>Success</td><td>0x789ghi...</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      iCominer - Dashboard Simulation for Educational Purposes
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mar 25', 'Mar 28', 'Apr 1', 'Apr 4', 'Apr 7'],
+        datasets: [{
+          label: 'Earnings ($)',
+          data: [15, 30, 45, 55, 75],
+          borderColor: '#00cec9',
+          backgroundColor: 'rgba(0, 206, 201, 0.2)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
